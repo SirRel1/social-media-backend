@@ -1,25 +1,30 @@
 const router = require('express').Router();
-const { User, Thoughts, Reaction, theUser } = require('../../models/User.js')
 
+const {
+    getAllUsers,
+    getUserById,
+    createUser,
+    addFriend,
+    updateUser,
+    deleteUser,
+    removeFriend
+} = require('../../controllers/user-controller');
 
-router.get('/:id', (req, res) => {
-    console.log(req.params.id)
-    res.status(200)
+router
+    .route('/')
+    .get(getAllUsers)
+    .post(createUser);
 
-});
+router
+    .route('/:id')
+    .get(getUserById)
+    .put(updateUser)
+    .delete(deleteUser)
 
+router
+    .route('/:userId/friends/:friendId')
+    .post(addFriend)
+    .delete(removeFriend)
 
-router.get('/', async (req, res) => {
-    const Users = await theUser.find();
-    res.json({message: "Hey Terrell"})
-    console.log(Users)
-
-
-});
-
-
-router.post('/', (req, res) => {
-
-})
 
 module.exports = router;

@@ -18,9 +18,10 @@ const Reaction = new Schema(
             required: true
         },
         createdAt: {
-            Date: new Date(),
-            timestamp: new Timestamp,
-            get: new Date(Timestamp),
+            type: Date,
+            default: Date.now(),
+            // timestamp: new Timestamp,
+            // get: new Date(Timestamp),
         }
 
     }

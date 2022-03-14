@@ -1,7 +1,8 @@
 const { Timestamp } = require('bson');
-const { Schema, model } = require('mongoose');
+const { Schema, model, mongoose } = require('mongoose');
 const Reaction = require('./Reaction')
 
+// Setting up schema for database
 const Thoughts = new Schema(
     {
         thoughtText: {
@@ -12,9 +13,9 @@ const Thoughts = new Schema(
             
         },
         createdAt: {
-            Date: new Date(),
-            default: new Timestamp,
-            get: new Date(Timestamp),
+            type: Date,
+            default: Date.now(),
+            get: () => new Date(Timestamp),
         },
         username: {
             type: String,
@@ -22,7 +23,31 @@ const Thoughts = new Schema(
         },
         reactions:[Reaction],
 
-    }
+    },
+    { 
+        toJSON: {
+          virtuals: true,
+          getters: true
+        },
+        id: false
+      }
 )
 
-module.exports = Thoughts;
+const theThoughts = mongoose.model('Thoughts', Thoughts);
+
+// Get total length of reactions and return
+Thoughts.virtual('reactionCount').get(function() {
+    return this.reactions.length;
+  });
+
+const newThought = new theThoughts({
+    thoughtText: "We all get tired, we all need strength and help",
+    username: "Relic"
+})
+
+// newThought.save()
+
+module.exports = {
+    theThoughts,
+    Thoughts
+};
