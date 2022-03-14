@@ -20,6 +20,7 @@ const Thoughts = new Schema(
         username: {
             type: String,
             required: true,
+            ref: 'theUser'
         },
         reactions:[Reaction],
 
@@ -41,8 +42,8 @@ Thoughts.virtual('reactionCount').get(function() {
   });
 
 const newThought = new theThoughts({
-    thoughtText: "We all get tired, we all need strength and help",
-    username: "Relic"
+    thoughtText: "Eventually we'll figure out what the problem is...",
+    username: "RelOne"
 })
 
 // newThought.save()

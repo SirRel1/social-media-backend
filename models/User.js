@@ -1,5 +1,6 @@
 const { Schema, model, mongoose } = require('mongoose');
 
+// Setting up user Schema
 const User = new Schema({
 	username: {
 		type: String,
@@ -39,8 +40,8 @@ User.virtual('friendCount').get(function() {
   });
 
 const newUser = new theUser({
-    username: "Relic",
-    email: "relicOne@gmail.com"
+    username: "RelOne",
+    email: "relOne@gmail.com"
 })
 
 // newUser.save()
