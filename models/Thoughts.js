@@ -2,7 +2,7 @@ const { Timestamp } = require('bson');
 const { Schema, model, mongoose } = require('mongoose');
 const Reaction = require('./Reaction')
 
-// Setting up schema for database
+// Setting up Thoughts schema for database
 const Thoughts = new Schema(
     {
         thoughtText: {

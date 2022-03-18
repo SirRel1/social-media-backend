@@ -1,4 +1,5 @@
 const { Schema, model, mongoose } = require('mongoose');
+const { theThoughts } = require('./Thoughts');
 
 // Setting up user Schema
 const User = new Schema({
@@ -32,6 +33,13 @@ const User = new Schema({
     },
     id: false
   });
+
+//   Delete usera and associated thoughts
+User.pre('remove', async function (next) {
+    const user = this;
+    await theThoughts.deleteMany({ userId : user._id })
+    next()
+})
 
 const theUser = mongoose.model('User', User);
 
